@@ -21,7 +21,11 @@ class Route
   end
 
   def delete_station(station)
-    stations.delete(station)
+    if station != @last_station && station != @first_station
+      stations.delete(station)
+    else
+      puts 'Error, you cant delete first or last station!'
+    end
   end
 
   def stations_names
