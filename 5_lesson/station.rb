@@ -1,7 +1,3 @@
-# frozen_string_literal: true
-
-# В классе Station (жд станция) создать метод класса all,
-# который возвращает все станции (объекты), созданные на данный момент
 require_relative 'instance_counter'
 
 class Station

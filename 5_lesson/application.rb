@@ -50,3 +50,5 @@ class Application
     end
   end
 end
+
+puts train.vendor_name = gets
