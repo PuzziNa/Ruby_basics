@@ -79,11 +79,11 @@ class Train
 
   private
 
-  def valid_number?
+  def valid?
     @number =~ /^[a-z|\d]{3}$|[a-z|\d]{3}-{1}[a-z|\d]{2}$/
   end
 
   def validate!
-    raise ArgumentError, 'Train number is invalid' unless valid_number?
+    raise ArgumentError, 'Train number is invalid' unless valid?
   end
 end

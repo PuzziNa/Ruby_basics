@@ -6,6 +6,7 @@ require_relative 'train'
 require_relative 'train_passenger'
 require_relative 'train_cargo'
 require_relative 'application'
+require_relative 'interface'
 require_relative 'vendor'
 require_relative 'instance_counter'
 
@@ -22,6 +23,10 @@ class Interface
 
     app.stations_list << Station.new(station_name)
     puts "you created new station - #{station_name}"
+  rescue ArgumentError => e
+    puts 'ERROR: ' + e.message
+    puts 'Please retry'
+    retry
   end
 
   def create_new_train
@@ -36,6 +41,10 @@ class Interface
     raise ArgumentError, 'wrong type of the train' unless [1, 2].include?(train_type)
 
     add_train_by_type(train_type, train_number)
+  rescue ArgumentError => e
+    puts 'ERROR: ' + e.message
+    puts 'Please retry'
+    retry
   end
 
   def create_new_route
@@ -53,6 +62,10 @@ class Interface
 
     app.routes_list << Route.new(first_station, last_station)
     puts "you created new route. #{Route.new(first_station, last_station).stations_names}"
+  rescue ArgumentError => e
+    puts 'ERROR: ' + e.message
+    puts 'Please retry'
+    retry
   end
 
   def add_station_to_route
@@ -67,6 +80,10 @@ class Interface
     station = app.choosen_station(app.user_menu_input)
 
     place_for_new_station(route, station)
+  rescue ArgumentError => e
+    puts 'ERROR: ' + e.message
+    puts 'Please retry'
+    retry
   end
 
   def delete_station_from_route
@@ -83,6 +100,10 @@ class Interface
 
     route.delete_station(station)
     puts "The route - #{route.stations_names}"
+  rescue ArgumentError => e
+    puts 'ERROR: ' + e.message
+    puts 'Please retry'
+    retry
   end
 
   def set_the_route_to_train
@@ -99,6 +120,10 @@ class Interface
 
     train.add_route(route)
     puts "you set the route - #{route.name} to the train - #{train.number}"
+  rescue ArgumentError => e
+    puts 'ERROR: ' + e.message
+    puts 'Please retry'
+    retry
   end
 
   def add_wagon_to_train
@@ -126,6 +151,10 @@ class Interface
 
     train.delete_wagon
     puts "you have deleted wagon from the #{train.number}, amount of wagons: #{train.wagons_amount}"
+  rescue ArgumentError => e
+    puts 'ERROR: ' + e.message
+    puts 'Please retry'
+    retry
   end
 
   def move_train_forward
@@ -139,6 +168,10 @@ class Interface
 
     train.forward
     puts "cutternt station - #{train.current_station.name}"
+  rescue ArgumentError => e
+    puts 'ERROR: ' + e.message
+    puts 'Please retry'
+    retry
   end
 
   def move_train_back
@@ -153,11 +186,18 @@ class Interface
     puts train.previous_station.name
     train.backward
     puts "cutternt station - #{train.current_station.name}"
+  rescue ArgumentError => e
+    puts 'ERROR: ' + e.message
+    puts 'Please retry'
+    retry
   end
 
   private
 
   def add_train_by_type(train_type, train_number)
+    raise ArgumentError, 'train type - nill' if train_type.nil?
+    raise ArgumentError, 'train number - nill' if train_number.nil?
+
     case train_type
     when 1
       app.trains_list << TrainPassenger.new(train_number)
@@ -170,6 +210,8 @@ class Interface
 
   def place_for_new_station(route, station)
     puts 'we neen to find the place of the station, enter previous station'
+    raise ArgumentError, 'route - nill' if route.nil?
+    raise ArgumentError, 'station - nill' if station.nil?
 
     route.stations.each.with_index(1) do |st, number|
       puts "#{number} - #{st.name}"

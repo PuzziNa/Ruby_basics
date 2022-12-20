@@ -59,7 +59,7 @@ loop do
     raise ArgumentError, 'Wrong input'
   end
 
-rescue StandardError, ArgumentError, NoMethodError => e
+rescue ArgumentError => e
   puts 'ERROR: ' + e.message
   puts 'Please retry'
   retry
