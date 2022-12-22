@@ -16,11 +16,15 @@ class Train
   end
 
   def initialize(number)
-    @number = number.to_s
+    @number = number
     validate!
     @wagons = []
     @speed = 0
     @@all_trains << self
+  end
+
+  def each_wagon(&block)
+    wagons.each.with_index(&block)
   end
 
   def speed_up
@@ -35,8 +39,8 @@ class Train
     @wagons.push(wagon) if @speed.zero? && valid_type?(wagon)
   end
 
-  def delete_wagon
-    @wagons.pop if @speed.zero? && wagons_amount > 0
+  def delete_wagon(wagon)
+    wagons.delete(wagon) if @speed.zero?
   end
 
   def add_route(route)

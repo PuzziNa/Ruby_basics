@@ -127,6 +127,11 @@ class Interface
   end
 
   def add_wagon_to_train
+    puts 'Enter wagon number'
+    number = gets.chomp
+
+    raise ArgumentError, 'number - nil' if number.nil?
+
     puts 'enter the train'
     app.show_trains
     train = app.choosen_train(app.user_menu_input)
@@ -134,12 +139,44 @@ class Interface
     raise ArgumentError, 'train - nil' if train.nil?
 
     if train.instance_of? TrainPassenger
-      train.add_wagon(WagonPassenger.new)
+      puts 'Enter passanger quantity'
+      quantity = gets.chomp.to_i
+      train.add_wagon(WagonPassenger.new(number, quantity))
+      puts "You added wagon to the train - #{train.number}, amount of wagons: #{train.wagons_amount}, wagon number: #{number}, passenger seats: #{quantity}"
     elsif train.instance_of? TrainCargo
-      train.add_wagon(WagonCargo.new)
+      puts 'Enter wagon space'
+      space = gets.chomp.to_i
+      train.add_wagon(WagonCargo.new(number, space))
+      puts "You added wagon to the train - #{train.number}, amount of wagons: #{train.wagons_amount}, wagon number: #{number}, wagon space: #{space}"
+    end
+  end
+
+  def fill_the_wagon
+    puts 'Enter the number of train - you want to edit:'
+    app.show_trains
+    train = app.choosen_train(app.user_menu_input)
+
+    raise ArgumentError, 'train - nil' if train.nil?
+
+    puts 'Enter the wagon you want to fill:'
+    train.each_wagon { |wagon, num| puts "#{num + 1} - #{wagon.number}" }
+    user_input = gets.chomp.to_i
+
+    raise ArgumentError, 'wagon - nil' if user_input.nil?
+
+    wagon = train.wagons[user_input - 1]
+
+    if wagon.instance_of? WagonPassenger
+      wagon.buy_ticket
+      puts "wagon free seats: #{wagon.free_seats}"
     end
 
-    puts "You added wagon to the train - #{train.number}, amount of wagons: #{train.wagons_amount}"
+    if wagon.instance_of? WagonCargo
+      puts 'how many space you want to occupy?'
+      space = gets.chomp.to_i
+      wagon.occupy_space(space)
+      puts "wagon free space: #{wagon.free_space}"
+    end
   end
 
   def remove_wagon_from_the_train
@@ -149,7 +186,14 @@ class Interface
 
     raise ArgumentError, 'train - nil' if train.nil?
 
-    train.delete_wagon
+    puts 'Enter the wagon you want to remove:'
+    train.each_wagon { |wagon, num| puts "#{num + 1} - #{wagon.number}" }
+    wagon = gets.chomp.to_i
+
+    raise ArgumentError, 'wagon - nil' if wagon.nil?
+
+    train.delete_wagon(train.wagons[wagon - 1])
+
     puts "you have deleted wagon from the #{train.number}, amount of wagons: #{train.wagons_amount}"
   rescue ArgumentError => e
     puts 'ERROR: ' + e.message
@@ -190,6 +234,44 @@ class Interface
     puts 'ERROR: ' + e.message
     puts 'Please retry'
     retry
+  end
+
+  def show_trains_on_the_station
+    puts 'enter the station'
+    app.show_stations
+
+    station = app.choosen_station(app.user_menu_input)
+
+    puts 'list of trains on the station:'
+
+    station.each_train do |train|
+      puts "number #{train.number}, type: #{train.class},amount of wagons: #{train.wagons_amount}"
+      train.each_wagon do |wagon|
+        puts 'list of wagons on this train'
+        if wagon.instance_of? WagonPassenger
+          puts "wagon N: #{wagon.number},occupied seats #{wagon.occupied_seats}, free seats: #{wagon.free_seats},wagon type: #{wagon.class}"
+        end
+        if wagon.instance_of? WagonCargo
+          puts "wagon N: #{wagon.number},occupied space #{wagon.occupied_volume}, free space: #{wagon.free_volume}, wagon type: #{wagon.class}"
+        end
+      end
+    end
+  end
+
+  def show_wagons_on_the_train
+    puts 'Enter the train'
+    app.show_trains
+    train = app.choosen_train(app.user_menu_input)
+
+    train.each_wagon do |wagon|
+      puts 'list of wagons on this train'
+      if wagon.instance_of? WagonPassenger
+        puts "wagon N: #{wagon.number},occupied seats #{wagon.occupied_seats}, free seats: #{wagon.free_seats},wagon type: #{wagon.class}"
+      end
+      if wagon.instance_of? WagonCargo
+        puts "wagon N: #{wagon.number},occupied space #{wagon.occupied_volume}, free space: #{wagon.free_volume}, wagon type: #{wagon.class}"
+      end
+    end
   end
 
   private

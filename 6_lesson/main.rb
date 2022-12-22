@@ -27,7 +27,10 @@ loop do
         9-move the train forward
         10-move the train  back
         11-the list of stations & the list of the trains on the station
-        12-exit'
+        12-list of trains on the current station
+        13-list of wagons on the train
+        14-fill the wagon
+        15-exit'
   action = gets.chomp.to_i
 
   case action
@@ -52,8 +55,14 @@ loop do
   when 10
     interface.move_train_back
   when 11
-    interface.app.show_trains_on_the_station
+    interface.app.show_all_trains_on_stations
   when 12
+    interface.show_trains_on_the_station
+  when 13
+    interface.show_wagons_on_the_train
+  when 14
+    interface.fill_the_wagon
+  when 15
     break
   else
     raise ArgumentError, 'Wrong input'

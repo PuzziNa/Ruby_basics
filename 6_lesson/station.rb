@@ -23,6 +23,10 @@ class Station
     register_instance
   end
 
+  def each_train(&block)
+    trains.each(&block)
+  end
+
   def add_train(train)
     trains << train
   end
