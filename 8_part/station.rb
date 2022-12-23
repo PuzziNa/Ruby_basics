@@ -12,7 +12,7 @@ class Station
   end
 
   def self.all_names
-    Station.all.map(&:name)
+    all.map(&:name)
   end
 
   def initialize(name)

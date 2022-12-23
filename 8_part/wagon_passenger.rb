@@ -3,7 +3,7 @@
 require_relative 'vendor'
 
 class WagonPassenger
-  attr_accessor :passanger_quantity, :occupied_seats, :number, :free_seats
+  attr_reader :passanger_quantity, :occupied_seats, :number, :free_seats
 
   include Vendor
 

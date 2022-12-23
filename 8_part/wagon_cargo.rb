@@ -3,7 +3,7 @@
 require_relative 'vendor'
 
 class WagonCargo
-  attr_accessor :space, :occupied_space, :number, :free_space
+  attr_reader :space, :occupied_space, :number, :free_space
 
   include Vendor
 
