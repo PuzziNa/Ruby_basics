@@ -5,11 +5,13 @@ class Train
 
   attr_reader :number, :wagons, :speed, :current_station
 
+  # rubocop:disable Style/ClassVars
   @@all_trains = []
 
   def self.all
     @@all_trains
   end
+  # rubocop:enable Style/ClassVars
 
   def self.find(number)
     @@all_trains.each do |train|
@@ -52,26 +54,26 @@ class Train
   end
 
   def forward
-    if @current_station != @route.last_station
-      @current_station.remove_train(self)
-      @current_station = next_station
-      @current_station.add_train(self)
-    end
+    return unless @current_station != @route.last_station
+
+    @current_station.remove_train(self)
+    @current_station = next_station
+    @current_station.add_train(self)
   end
 
   def backward
-    if @current_station != @route.first_station
-      @current_station.remove_train(self)
-      @current_station = previous_station
-      @current_station.add_train(self)
-    end
+    return unless @current_station != @route.first_station
+
+    @current_station.remove_train(self)
+    @current_station = previous_station
+    @current_station.add_train(self)
   end
 
   def previous_station
-    if @current_station != @route.first_station
-      station_index = @route.stations.find_index(@current_station) - 1
-      @route.stations[station_index]
-    end
+    ireturn unless @current_station != @route.first_station
+
+    station_index = @route.stations.find_index(@current_station) - 1
+    @route.stations[station_index]
   end
 
   def next_station

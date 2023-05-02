@@ -14,6 +14,7 @@ require_relative 'instance_counter'
 
 interface = Interface.new
 
+# rubocop:disable Metrics/BlockLength
 loop do
   puts '
         What action do you want to do (put the number):
@@ -75,3 +76,4 @@ rescue ArgumentError => e
   puts 'Please retry'
   retry
 end
+# rubocop:enable Metrics/BlockLength

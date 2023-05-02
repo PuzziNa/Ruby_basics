@@ -144,12 +144,14 @@ class Interface
       puts 'Enter passanger quantity'
       quantity = gets.chomp.to_i
       train.add_wagon(WagonPassenger.new(number, quantity))
-      puts "You added wagon to the train - #{train.number}, amount of wagons: #{train.wagons_amount}, wagon number: #{number}, passenger seats: #{quantity}"
+      puts "You added wagon to the train - #{train.number}, amount of wagons: \
+            #{train.wagons_amount}, wagon number: #{number}, passenger seats: #{quantity}"
     elsif train.instance_of? TrainCargo
       puts 'Enter wagon space'
       space = gets.chomp.to_i
       train.add_wagon(WagonCargo.new(number, space))
-      puts "You added wagon to the train - #{train.number}, amount of wagons: #{train.wagons_amount}, wagon number: #{number}, wagon space: #{space}"
+      puts "You added wagon to the train - #{train.number}, amount of wagons: \
+           #{train.wagons_amount}, wagon number: #{number}, wagon space: #{space}"
     end
   end
 
@@ -173,12 +175,12 @@ class Interface
       puts "wagon free seats: #{wagon.free_seats}"
     end
 
-    if wagon.instance_of? WagonCargo
-      puts 'how many space you want to occupy?'
-      space = gets.chomp.to_i
-      wagon.occupy_space(space)
-      puts "wagon free space: #{wagon.free_space}"
-    end
+    return unless wagon.instance_of? WagonCargo
+
+    puts 'how many space you want to occupy?'
+    space = gets.chomp.to_i
+    wagon.occupy_space(space)
+    puts "wagon free space: #{wagon.free_space}"
   end
 
   def remove_wagon_from_the_train
@@ -251,10 +253,12 @@ class Interface
       train.each_wagon do |wagon|
         puts 'list of wagons on this train'
         if wagon.instance_of? WagonPassenger
-          puts "wagon N: #{wagon.number},occupied seats #{wagon.occupied_seats}, free seats: #{wagon.free_seats},wagon type: #{wagon.class}"
+          puts "wagon N: #{wagon.number},occupied seats #{wagon.occupied_seats}, \
+               free seats: #{wagon.free_seats},wagon type: #{wagon.class}"
         end
         if wagon.instance_of? WagonCargo
-          puts "wagon N: #{wagon.number},occupied space #{wagon.occupied_volume}, free space: #{wagon.free_volume}, wagon type: #{wagon.class}"
+          puts "wagon N: #{wagon.number},occupied space #{wagon.occupied_volume}, \
+                free space: #{wagon.free_volume}, wagon type: #{wagon.class}"
         end
       end
     end
@@ -268,10 +272,12 @@ class Interface
     train.each_wagon do |wagon|
       puts 'list of wagons on this train'
       if wagon.instance_of? WagonPassenger
-        puts "wagon N: #{wagon.number},occupied seats #{wagon.occupied_seats}, free seats: #{wagon.free_seats},wagon type: #{wagon.class}"
+        puts "wagon N: #{wagon.number},occupied seats #{wagon.occupied_seats}, \
+             free seats: #{wagon.free_seats},wagon type: #{wagon.class}"
       end
       if wagon.instance_of? WagonCargo
-        puts "wagon N: #{wagon.number},occupied space #{wagon.occupied_volume}, free space: #{wagon.free_volume}, wagon type: #{wagon.class}"
+        puts "wagon N: #{wagon.number},occupied space #{wagon.occupied_volume}, \
+             free space: #{wagon.free_volume}, wagon type: #{wagon.class}"
       end
     end
   end

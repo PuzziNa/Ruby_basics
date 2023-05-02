@@ -14,11 +14,9 @@ class WagonCargo
   end
 
   def occupy_space(volume)
-    if (@free_space - volume).positive?
-      @occupied_space += volume
-    else
-      raise ArgumentError, 'not enough space'
-    end
+    raise ArgumentError, 'not enough space' unless (@free_space - volume).positive?
+
+    @occupied_space += volume
   end
 
   def free_space

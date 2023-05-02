@@ -7,11 +7,13 @@ class Station
 
   attr_reader :name, :trains
 
+  # rubocop:disable Style/ClassVars
   @@stations = []
 
   def self.all
     @@stations
   end
+  # rubocop:enable Style/ClassVars
 
   def self.all_names
     all.map(&:name)
