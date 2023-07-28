@@ -1,0 +1,16 @@
+Style/Documentation:
+  Enabled: false
+AllCops:
+  NewCops: enable
+Metrics/ClassLength:
+  Exclude:
+    - 'interface.rb'
+Metrics/AbcSize:
+  Exclude:
+    - 'interface.rb'
+Metrics/MethodLength:
+  Exclude:
+    - 'interface.rb'
+Layout/LineLength:
+  Exclude:
+    - 'interface.rb'
