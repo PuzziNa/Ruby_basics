@@ -67,7 +67,7 @@ class Interface
   rescue ArgumentError => e
     puts "ERROR: #{e.message}"
     puts 'Please retry'
-    # retry
+    retry
   end
 
   def add_station_to_route
@@ -85,7 +85,7 @@ class Interface
   rescue ArgumentError => e
     puts "ERROR: #{e.message}"
     puts 'Please retry'
-    # retry
+    retry
   end
 
   def delete_station_from_route
@@ -105,7 +105,7 @@ class Interface
   rescue ArgumentError => e
     puts "ERROR: #{e.message}"
     puts 'Please retry'
-    # retry
+    retry
   end
 
   def set_the_route_to_train
@@ -125,7 +125,7 @@ class Interface
   rescue ArgumentError => e
     puts "ERROR: #{e.message}"
     puts 'Please retry'
-    # retry
+    retry
   end
 
   def add_wagon_to_train
@@ -217,7 +217,7 @@ class Interface
   rescue ArgumentError => e
     puts "ERROR: #{e.message}"
     puts 'Please retry'
-    # retry
+    retry
   end
 
   def move_train_back
@@ -235,7 +235,7 @@ class Interface
   rescue ArgumentError => e
     puts "ERROR: #{e.message}"
     puts 'Please retry'
-    # retry
+    retry
   end
 
   def show_trains_on_the_station

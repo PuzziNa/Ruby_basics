@@ -27,14 +27,6 @@ module Validation
       false
     end
 
-    # def valid?
-    #   @number =~ /^[a-z|\d]{3}$|[a-z|\d]{3}-{1}[a-z|\d]{2}$/
-    # end
-
-    # def validate!
-    #   raise ArgumentError, 'Train number is invalid' unless valid?
-    # end
-
     private
 
     def validate_presence(name)
@@ -50,11 +42,3 @@ module Validation
     end
   end
 end
-
-# class Train
-#   validate(:name, :exist)
-#   validate(:name, :format, /dd/)
-# end
-
-# send("validate_#{v[0]}", attr_name, *v[1])
-# validate_presend(:name, nil)
