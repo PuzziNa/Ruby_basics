@@ -3,5 +3,9 @@
 class TrainCargo < Train
   include InstanceCounter
 
-  validate :wagon, :type, WagonCargo
+  validate :number, :format, ID_FORMAT
+
+  def valid_type?(wagon)
+    wagon.instance_of? WagonCargo
+  end
 end

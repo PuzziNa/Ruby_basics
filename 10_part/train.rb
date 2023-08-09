@@ -11,8 +11,7 @@ class Train
 
   attr_reader :number, :wagons, :current_station, :speed
 
-  validate :name, :presence
-  validate :name, :format, ID_FORMAT
+  validate :number, :presence
 
   @@all_trains = []
 

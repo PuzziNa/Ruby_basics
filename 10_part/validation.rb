@@ -30,15 +30,18 @@ module Validation
     private
 
     def validate_presence(name)
-      raise ArgumentError, "#{name} равно nil, или пустой строке!" if send(name.to_s).to_s.empty?
+      return unless send(name.to_s).to_s.empty?
+      raise ArgumentError, "#{name} равно nil, или пустой строке!"
     end
 
     def validate_type(name, type)
-      raise ArgumentError, "#{name} не является классом #{type}!" unless send(name.to_s).is_a?(type)
+      return if send(name.to_s).is_a?(type)
+      raise ArgumentError, "#{name} не является классом #{type}!"
     end
 
     def validate_format(name, format)
-      raise ArgumentError, "#{name} не соответстует #{format}" if send(name.to_s).to_s !~ format
+      return if send(name.to_s).to_s.match?(format)
+      raise ArgumentError, "#{name} не соответстует #{format}"
     end
   end
 end
